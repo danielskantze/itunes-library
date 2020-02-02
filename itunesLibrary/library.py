@@ -22,6 +22,7 @@ class Library(object):
         super(Library, self).__init__()
         self.playlists = []
         self.items     = []
+        self.itemLookup = dict()
         self.ignoreRemoteSongs = ignoreRemoteSongs
 
     def addPlaylist(self,playlist):
@@ -34,11 +35,18 @@ class Library(object):
             return
 
         self.items.append(item)
+        trackId = item.getItunesAttribute('Track ID')
+        assert(trackId is not None)
+        if trackId is not None:
+            assert(trackId not in self.itemLookup)
+            self.itemLookup[str(trackId)] = item
 
     def getItemsById(self,trackId):
-        """Returns an item based on its Track Idor None"""
+        """Returns an item based on its Track Id or None"""
         trackId = str(trackId)      # all keys are strs, allow for integers to be passed in
-        return next((i for i in self.items if i.getItunesAttribute('Track ID') == trackId),None)
+        if trackId in self.itemLookup:
+            return self.itemLookup[trackId]
+        return None
 
     def getPlaylist(self,name):
         """Returns a Playlist based on its name or None"""
