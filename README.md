@@ -8,7 +8,7 @@ library will be **not** re-created verbatim.
 
 This repository is a fork of Steven Scholnick's repository (https://github.com/scholnicks/itunes-library). Hacked the reading of the library using a lookup instead of iterating across iTunes items. Parsing my huge iTunes lib went from several minutes to about 10 seconds. Also, see the discussion below. 
 
-Installation : pip install itunesLibrary
+Installation : pip install git+https://github.com/danielskantze/itunes-library
 
 Example Code
 
